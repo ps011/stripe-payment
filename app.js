@@ -1,11 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const mysql = require('mysql');
+const fs = require('fs');
 const { resolve } = require("path");
 const env = require("dotenv").config({ path: "./.env" });
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const port = process.env.PORT || 4242;
 
+
+var conn = mysql.createConnection({host: "SG-stripe-1944-master.servers.mongodirector.com", user: 'prasheel', password: 'P@ssword123', database: 'transactions', port: 3306, ssl:{ca:fs.readFileSync('ca.cert')}});
+conn.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 // Setup useful middleware.
 app.use(
   bodyParser.json({
@@ -110,8 +118,12 @@ app.post("/webhook", async (req, res) => {
   }
 
   if (eventType === "payment_intent.succeeded") {
-    console.log('Payment Successssssss')
     console.log("💰Your user provided payment details!", req.rawBody);
+    var sql = `INSERT INTO transaction (id) VALUES (${req.rawBody.id})`;
+    conn.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted");
+    });
     // Fulfill any orders or e-mail receipts
     res.sendStatus(200);
   }
