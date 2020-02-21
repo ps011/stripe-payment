@@ -8,12 +8,15 @@ const env = require("dotenv").config({ path: "./.env" });
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const port = process.env.PORT || 4242;
 
-
+try {
 var conn = mysql.createConnection({host: "SG-stripe-1944-master.servers.mongodirector.com", user: 'prasheel', password: 'P@ssword123', database: 'transactions', port: 3306, ssl:{ca:fs.readFileSync('ca.cert')}});
 conn.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
+} catch (e) {
+console.log('EXCEPTION', e)
+}
 // Setup useful middleware.
 app.use(
   bodyParser.json({
