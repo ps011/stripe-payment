@@ -9,7 +9,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const port = process.env.PORT || 4242;
 
 try {
-var conn = mysql.createConnection({host: "SG-stripe-1944-master.servers.mongodirector.com", user: 'prasheel', password: 'P@ssword123', database: 'transactions', port: 3306, ssl:{ca:fs.readFileSync('ca.cert')}});
+var conn = mysql.createConnection({host: "SG-stripe-1944-master.servers.mongodirector.com", user: 'prasheel', password: 'P@ssword123', database: 'transactions', port: 3306});
 conn.connect(function(err) {
   if (err) {
     console.log("ERROR!", err);
