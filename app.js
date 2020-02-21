@@ -124,7 +124,7 @@ app.post("/webhook", async (req, res) => {
   }
 
   if (eventType === "payment_intent.succeeded") {
-    console.log("💰Your user provided payment details!", res.body);
+    console.log("💰Your user provided payment details!", req.body, req.body.id);
     // var sql = `INSERT INTO transaction (transaction_id, created) VALUES ('${res.body.id}', '${res.body.created}')`;
     // conn.query(sql, function (err, result) {
     //   if (err) throw err;
