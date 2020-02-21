@@ -14,7 +14,7 @@ conn.connect(function(err) {
   if (err) {
     console.log("ERROR!", err);
   } else {
-  console.log("Connected!", conn);
+  // console.log("Connected!", conn);
   }
 });
 } catch (e) {
@@ -124,8 +124,8 @@ app.post("/webhook", async (req, res) => {
   }
 
   if (eventType === "payment_intent.succeeded") {
-    console.log("💰Your user provided payment details!", req.rawBody);
-    var sql = `INSERT INTO transaction (id) VALUES (${req.rawBody.id})`;
+    console.log("💰Your user provided payment details!", req.rawBody.id);
+    var sql = `INSERT INTO transaction (transaction_id, created) VALUES ('${req.rawBody.id}', '${req.rawBody.created}')`;
     conn.query(sql, function (err, result) {
       if (err) throw err;
       console.log("1 record inserted");
