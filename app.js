@@ -111,7 +111,7 @@ app.post("/webhook", async (req, res) => {
 
   if (eventType === "payment_intent.succeeded") {
     console.log('Payment Successssssss')
-    console.log("💰Your user provided payment details!");
+    console.log("💰Your user provided payment details!", req.rawBody);
     // Fulfill any orders or e-mail receipts
     res.sendStatus(200);
   }
