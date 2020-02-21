@@ -125,11 +125,11 @@ app.post("/webhook", async (req, res) => {
 
   if (eventType === "payment_intent.succeeded") {
     console.log("💰Your user provided payment details!", req.rawBody);
-    // var sql = `INSERT INTO transaction (id) VALUES (${req.rawBody.id})`;
-    // conn.query(sql, function (err, result) {
-    //   if (err) throw err;
-    //   console.log("1 record inserted");
-    // });
+    var sql = `INSERT INTO transaction (id) VALUES (${req.rawBody.id})`;
+    conn.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted");
+    });
     // Fulfill any orders or e-mail receipts
     res.sendStatus(200);
   }
